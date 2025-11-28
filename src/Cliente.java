@@ -6,12 +6,21 @@ public class Cliente {
     private int id;
     private String nome;
     private String email;
+    private int cpf;
     private String genero;
     private boolean receberNotificacao;
     private boolean receberEmail;
 
     public int getId(){
         return id;
+    }
+
+    public int getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
     }
 
     public void setId(int id){

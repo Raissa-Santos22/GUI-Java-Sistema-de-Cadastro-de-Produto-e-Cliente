@@ -1,6 +1,7 @@
 public class Produto {
     private int id;
     private String nome;
+    private String descricao;
     private int quantidade;
     private double PrecoUnitario;
     private String fornecedor;
@@ -19,6 +20,13 @@ public class Produto {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public String getDescricao(){
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public int getQuantidade() {
