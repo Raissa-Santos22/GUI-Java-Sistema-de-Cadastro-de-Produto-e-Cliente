@@ -141,20 +141,33 @@ public class JanelaPrincipal extends JFrame {
         JButton btnDeletarCliente = new JButton("Deletar");
         JButton btnGerarRelatorio = new JButton("Gerar Relatório");
 
-        JPanel painelListadeBotões = new JPanel();
-        painelListadeBotões.add(btnAtualizarCliente);
-        painelListadeBotões.add(btnDeletarCliente);
-        painelListadeBotões.add(btnGerarRelatorio);
+        JPanel painelListadeBotoes = new JPanel();
+        painelListadeBotoes.add(btnAtualizarCliente);
+        painelListadeBotoes.add(btnDeletarCliente);
+        painelListadeBotoes.add(btnGerarRelatorio);
 
         JPanel painelListaCliente = new JPanel(new BorderLayout());
         painelListaCliente.add(new JScrollPane(tabelaCliente), BorderLayout.CENTER);
-        painelListaCliente.add(painelListadeBotões, BorderLayout.SOUTH);
+        painelListaCliente.add(painelListadeBotoes, BorderLayout.SOUTH);
         abas.addTab("Relatório dos Cliente", painelListaCliente);
 
+        // Painel Lista Produto
 
+        modeloTabelaProduto = new DefaultTableModel(new Object[]{"ID", "Nome", "Descrição","Quanitidade", "Fornecedor", "Preço Unitário"}, 0);
+        tabelaProduto = new JTable(modeloTabelaProduto);
+        JButton btnAtualizarProduto = new JButton("Atualizar");
+        JButton btnDeletarProduto = new JButton("Deletar");
+        JButton btnGerarRelatórioProduto = new JButton("Gerar Relatório");
 
+        JPanel painelListaBotoesProduto = new JPanel();
+        painelListaBotoesProduto.add(btnAtualizarProduto);
+        painelListaBotoesProduto.add(btnDeletarProduto);
+        painelListaBotoesProduto.add(btnGerarRelatórioProduto);
 
-
+        JPanel painelListaProduto = new JPanel(new BorderLayout());
+        painelListaProduto.add(new JScrollPane(tabelaProduto),BorderLayout.CENTER);
+        painelListaProduto.add(painelListaBotoesProduto, BorderLayout.SOUTH);
+        abas.addTab("Relatório dos Produtos", painelListaProduto);
     }
 
     public static void main(String[] args) {
