@@ -7,7 +7,8 @@ import java.util.List;
 public class JanelaPrincipal extends JFrame {
 
     // Campos Cliente
-    private JTextField campoNomeCliente, campoEmailCliente;
+    private JTextField campoNomeCliente;
+    private JTextField campoEmailCliente;
     private JTextField cpf;
     private JCheckBox checkEmail, checkNotificacao;
     private JRadioButton radioMasc, radioFem;
@@ -15,6 +16,7 @@ public class JanelaPrincipal extends JFrame {
 
     private JTable tabelaCliente;
     private DefaultTableModel modeloTabelaCliente;
+    private boolean tabelaCarregada = false;
 
     // Campos Produto
     private JTextField campoNomeProduto, campoDescricaoProduto,
@@ -23,6 +25,7 @@ public class JanelaPrincipal extends JFrame {
 
     private JTable tabelaProduto;
     private DefaultTableModel modeloTabelaProduto;
+
 
     private JanelaPrincipal(){
         setTitle("Sistema de Cadastro de Produto e Cliente");
@@ -135,7 +138,7 @@ public class JanelaPrincipal extends JFrame {
 
         // Painel Lista Cliente
 
-        modeloTabelaCliente = new DefaultTableModel(new Object[]{"ID", "Nome", "Email", "CPF", "Gênero"}, 0);
+        modeloTabelaCliente = new DefaultTableModel(new Object[]{"ID", "Nome", "Email", "Gênero", "CPF"}, 0);
         tabelaCliente = new JTable(modeloTabelaCliente);
         JButton btnAtualizarCliente = new JButton("Atualizar");
         JButton btnDeletarCliente = new JButton("Deletar");
@@ -163,14 +166,115 @@ public class JanelaPrincipal extends JFrame {
         painelListaBotoesProduto.add(btnAtualizarProduto);
         painelListaBotoesProduto.add(btnDeletarProduto);
         painelListaBotoesProduto.add(btnGerarRelatórioProduto);
+        btnGerarRelatorio.addActionListener(e -> {
+            tabelaCarregada = true;
+            carregarTabelaCliente();
+        });
 
         JPanel painelListaProduto = new JPanel(new BorderLayout());
         painelListaProduto.add(new JScrollPane(tabelaProduto),BorderLayout.CENTER);
         painelListaProduto.add(painelListaBotoesProduto, BorderLayout.SOUTH);
         abas.addTab("Relatório dos Produtos", painelListaProduto);
+        
+        // Métodos Cliente
+
+        // Ações do Cadastro Cliente
+        btnCadastrarCliente.addActionListener(e -> cadastrarCliente());
+        btnLimparCliente.addActionListener(e -> limparCamposCliente());
+        btnAtualizarCliente.addActionListener(e -> atualizarCliente());
+        btnDeletarCliente.addActionListener(e -> deletarCliente());
+        getContentPane().add(abas);
+    }
+
+
+
+    private void cadastrarCliente() {
+        Cliente cliente = new Cliente();
+        cliente.setNome(campoNomeCliente.getText());
+        cliente.setEmail(campoEmailCliente.getText());
+        cliente.setCpf(cpf.getText());
+        cliente.setGenero(radioMasc.isSelected() ? "Masculino" : "Feminino");
+        cliente.setReceberEmail(checkEmail.isSelected());
+        cliente.setReceberNotificacao(checkNotificacao.isSelected());
+
+        new ClienteDAO().salvar(cliente);
+        limparCamposCliente();
+        JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!");
+    }
+
+    private void carregarTabelaCliente() {
+        modeloTabelaCliente.setRowCount(0);
+        List<Cliente> lista = new ClienteDAO().listar();
+
+        for (Cliente c : lista) {
+            modeloTabelaCliente.addRow(new Object[]{c.getId(), c.getNome(), c.getEmail(), c.getGenero(), c.getCpf(),
+            });
+        }
+        tabelaCarregada = true;
+    }
+
+    private void atualizarCliente() {
+
+        if (!tabelaCarregada) {
+            JOptionPane.showMessageDialog(this, "Clique em GERAR RELATÓRIO antes de atualizar.");
+            return;
+        }
+
+        int linha = tabelaCliente.getSelectedRow();
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um aluno para atualizar.");
+            return;
+        }
+
+        int id = (int) tabelaCliente.getValueAt(linha, 0);
+        String novoNome = JOptionPane.showInputDialog("Novo nome:", tabelaCliente.getValueAt(linha, 1));
+        String novoEmail = JOptionPane.showInputDialog("Novo email:", tabelaCliente.getValueAt(linha, 2));
+        String novoGenero = JOptionPane.showInputDialog("Novo gênero:", tabelaCliente.getValueAt(linha, 3));
+        String novoCpf = JOptionPane.showInputDialog("Novo CPF :", tabelaCliente.getValueAt(linha, 4));
+
+        Cliente cliente = new Cliente();
+        cliente.setId(id);
+        cliente.setNome(novoNome);
+        cliente.setEmail(novoEmail);
+        cliente.setGenero(novoGenero);
+        cliente.setCpf(novoCpf);
+
+
+        new ClienteDAO().atualizar(cliente);
+
+        JOptionPane.showMessageDialog(this, "Aluno atualizado com sucesso!");
+    }
+
+    private void limparCamposCliente() {
+        campoNomeCliente.setText("");
+        campoEmailCliente.setText("");
+        radioMasc.setSelected(false);
+        radioFem.setSelected(false);
+        checkEmail.setSelected(false);
+        checkNotificacao.setSelected(false);
+    }
+
+    private void deletarCliente() {
+        if (!tabelaCarregada) {
+            JOptionPane.showMessageDialog(this, "Clique em GERAR RELATÓRIO antes de excluir.");
+            return;
+        }
+
+        int linha = tabelaCliente.getSelectedRow();
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um aluno para excluir.");
+            return;
+        }
+
+        int id = (int) tabelaCliente.getValueAt(linha, 0);
+
+        new ClienteDAO().excluir(id);
+
+        JOptionPane.showMessageDialog(this, "Aluno excluído com sucesso!");
     }
 
     public static void main(String[] args) {
         new JanelaPrincipal();
     }
 }
+

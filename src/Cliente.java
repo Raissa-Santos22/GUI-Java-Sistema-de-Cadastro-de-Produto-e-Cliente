@@ -6,7 +6,7 @@ public class Cliente {
     private int id;
     private String nome;
     private String email;
-    private int cpf;
+    private String cpf;
     private String genero;
     private boolean receberNotificacao;
     private boolean receberEmail;
@@ -15,11 +15,11 @@ public class Cliente {
         return id;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
