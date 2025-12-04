@@ -6,8 +6,8 @@ import java.util.List;
 
 public class JanelaLoginAdminitrador extends JFrame {
 
-    private JTextField txtEmail;
-    private JPasswordField txtSenha;
+    private JTextField Email;
+    private JPasswordField Senha;
     private JButton btnEntrar;
 
     public JanelaLoginAdminitrador() {
@@ -33,8 +33,8 @@ public class JanelaLoginAdminitrador extends JFrame {
         painelCampos.add(new JLabel("Email:"), gbc);
 
         gbc.gridx = 1;
-        txtEmail = new JTextField(20);
-        painelCampos.add(txtEmail, gbc);
+        Email = new JTextField(20);
+        painelCampos.add(Email, gbc);
 
         // Senha
         gbc.gridx = 0;
@@ -42,8 +42,8 @@ public class JanelaLoginAdminitrador extends JFrame {
         painelCampos.add(new JLabel("Senha:"), gbc);
 
         gbc.gridx = 1;
-        txtSenha = new JPasswordField(20);
-        painelCampos.add(txtSenha, gbc);
+        Senha = new JPasswordField(20);
+        painelCampos.add(Senha, gbc);
 
         add(painelCampos, BorderLayout.CENTER);
 
@@ -54,25 +54,25 @@ public class JanelaLoginAdminitrador extends JFrame {
         add(painelBotoes, BorderLayout.SOUTH);
 
         btnEntrar.addActionListener(e -> logar());
-        txtSenha.addActionListener(e -> logar());
+        Senha.addActionListener(e -> logar());
 
         setVisible(true);
     }
 
     private void logar() {
-        String email = txtEmail.getText();
-        String senha = new String(txtSenha.getPassword());
+        String email = Email.getText();
+        String senha = new String(Senha.getPassword());
 
         AdministradorDAO dao = new AdministradorDAO();
 
         if (dao.autenticar(email, senha)) {
             JOptionPane.showMessageDialog(this, "Login realizado com sucesso!");
-            new JanelaLoginAdminitrador().setVisible(true);
+            new JanelaPrincipal().setVisible(true);
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Email ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
-            txtSenha.setText("");
-            txtEmail.requestFocus();
+            Senha.setText("");
+            Email.requestFocus();
         }
     }
 
