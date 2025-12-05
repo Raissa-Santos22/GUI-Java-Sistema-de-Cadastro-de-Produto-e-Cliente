@@ -1,18 +1,16 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.List;
 
-public class JanelaLoginAdminitrador extends JFrame {
+public class JanelaLoginAdministrador extends JFrame {
 
-    private JTextField Email;
-    private JPasswordField Senha;
+    private JTextField campoNome;
+    private JTextField campoEmail;
+    private JPasswordField campoSenha;
     private JButton btnEntrar;
 
-    public JanelaLoginAdminitrador() {
+    public JanelaLoginAdministrador() {
         setTitle("Login do Administrador");
-        setSize(400, 300);
+        setSize(400, 350);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -28,22 +26,32 @@ public class JanelaLoginAdminitrador extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        // Nome
         gbc.gridx = 0;
         gbc.gridy = 0;
+        painelCampos.add(new JLabel("Nome:"), gbc);
+
+        gbc.gridx = 1;
+        campoNome = new JTextField(20);
+        painelCampos.add(campoNome, gbc);
+
+        // Email
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         painelCampos.add(new JLabel("Email:"), gbc);
 
         gbc.gridx = 1;
-        Email = new JTextField(20);
-        painelCampos.add(Email, gbc);
+        campoEmail = new JTextField(20);
+        painelCampos.add(campoEmail, gbc);
 
         // Senha
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         painelCampos.add(new JLabel("Senha:"), gbc);
 
         gbc.gridx = 1;
-        Senha = new JPasswordField(20);
-        painelCampos.add(Senha, gbc);
+        campoSenha = new JPasswordField(20);
+        painelCampos.add(campoSenha, gbc);
 
         add(painelCampos, BorderLayout.CENTER);
 
@@ -54,29 +62,38 @@ public class JanelaLoginAdminitrador extends JFrame {
         add(painelBotoes, BorderLayout.SOUTH);
 
         btnEntrar.addActionListener(e -> logar());
-        Senha.addActionListener(e -> logar());
+        campoSenha.addActionListener(e -> logar());
 
         setVisible(true);
     }
 
     private void logar() {
-        String email = Email.getText();
-        String senha = new String(Senha.getPassword());
+
+        String nome = campoNome.getText();
+        String email = campoEmail.getText();
+        String senha = new String(campoSenha.getPassword());
+
+        if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Preencha todos os campos!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
         AdministradorDAO dao = new AdministradorDAO();
 
-        if (dao.autenticar(email, senha)) {
+        if (dao.autenticar(nome, email, senha)) {
             JOptionPane.showMessageDialog(this, "Login realizado com sucesso!");
             new JanelaPrincipal().setVisible(true);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Email ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
-            Senha.setText("");
-            Email.requestFocus();
+            JOptionPane.showMessageDialog(this,
+                    "Nome, Email ou Senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            campoSenha.setText("");
+            campoNome.requestFocus();
         }
     }
 
     public static void main(String[] args) {
-        new JanelaLoginAdminitrador();
+        new JanelaLoginAdministrador();
     }
 }
