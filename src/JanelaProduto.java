@@ -112,7 +112,7 @@ public class JanelaProduto extends JFrame {
         lblTituloRelatorio.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
         painelListaProduto.add(lblTituloRelatorio, BorderLayout.NORTH);
 
-        modeloTabelaProduto = new DefaultTableModel(new Object[]{"ID", "Nome", "Descrição", "Quanitidade", "Fornecedor", "Preço Unitário"}, 0);
+        modeloTabelaProduto = new DefaultTableModel(new Object[]{"ID", "Nome", "Descrição", "Quantidade", "Fornecedor", "Preço Unitário"}, 0);
         tabelaProduto = new JTable(modeloTabelaProduto);
         painelListaProduto.add(new JScrollPane(tabelaProduto), BorderLayout.CENTER);
 
