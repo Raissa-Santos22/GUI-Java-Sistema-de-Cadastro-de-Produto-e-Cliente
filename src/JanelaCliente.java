@@ -21,8 +21,7 @@ public class JanelaCliente extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Menu
-        JMenuBar barra = new JMenuBar();
+         JMenuBar barra = new JMenuBar();
         JMenu menuArquivo = new JMenu("Arquivo");
         JMenuItem itemSair = new JMenuItem("Sair");
         itemSair.addActionListener(e -> System.exit(0));
@@ -30,25 +29,22 @@ public class JanelaCliente extends JFrame {
 
         JMenu menuAjuda = new JMenu("Ajuda");
         JMenuItem itemSobre = new JMenuItem("Sobre");
-        itemSobre.addActionListener(e -> JOptionPane.showMessageDialog(this,
-                "Sistema de Cadastro de Cliente \nCRUD Completo\nVersão 2.0"));
+        itemSobre.addActionListener(e -> JOptionPane.showMessageDialog(this, "Sistema de Cadastro de Cliente \nCRUD Completo\nVersão 2.0"));
         menuAjuda.add(itemSobre);
 
-        JMenuItem itemCadastroProduto = new JMenuItem("Cadastro de Produto");
-        itemCadastroProduto.addActionListener(e -> {
-            new JanelaProduto().setVisible(true);
+        JMenuItem itemJanelaPrincipal = new JMenuItem("Janela Principal");
+        itemJanelaPrincipal.addActionListener(e -> {
+            new JanelaPrincipal().setVisible(true);
             this.dispose();
         });
 
         barra.add(menuArquivo);
         barra.add(menuAjuda);
-        barra.add(itemCadastroProduto);
+        barra.add(itemJanelaPrincipal);
         setJMenuBar(barra);
 
-        // Abas
         JTabbedPane abas = new JTabbedPane();
 
-        // ---------------- Aba Cadastro ----------------
         JLabel lblTituloCadastro = new JLabel("Cadastro do Cliente", SwingConstants.CENTER);
         lblTituloCadastro.setFont(new Font("Arial", Font.BOLD, 24));
         lblTituloCadastro.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
@@ -99,7 +95,6 @@ public class JanelaCliente extends JFrame {
 
         abas.addTab("Cadastro Cliente", painelCadastroClienteCompleto);
 
-        // ---------------- Aba Relatório ----------------
         JPanel painelListaCliente = new JPanel(new BorderLayout());
         JLabel lblTituloRelatorio = new JLabel("Relatório dos Clientes", SwingConstants.CENTER);
         lblTituloRelatorio.setFont(new Font("Arial", Font.BOLD, 24));
@@ -123,7 +118,6 @@ public class JanelaCliente extends JFrame {
 
         add(abas, BorderLayout.CENTER);
 
-        // ---------------- Ações dos botões ----------------
         btnCadastrarCliente.addActionListener(e -> cadastrarCliente());
         btnLimparCliente.addActionListener(e -> limparCamposCliente());
         btnGerarRelatorio.addActionListener(e -> carregarTabelaCliente());
@@ -131,7 +125,6 @@ public class JanelaCliente extends JFrame {
         btnDeletarCliente.addActionListener(e -> deletarCliente());
     }
 
-    // ---------------- Métodos CRUD ----------------
     private void cadastrarCliente() {
         Cliente cliente = new Cliente();
         cliente.setNome(campoNomeCliente.getText());

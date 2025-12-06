@@ -40,16 +40,18 @@ public class JanelaProduto extends JFrame {
                 "Sistema de Cadastro de Produto \nCRUD Completo\nVersão 2.0"));
         menuAjuda.add(itemSobre);
 
-        JMenuItem itemCadastroCliente = new JMenuItem("Cadastro de Cliente");
-        itemCadastroCliente.addActionListener(e -> {
-            new JanelaCliente().setVisible(true);
+
+        JMenuItem itemJanelaPrincipal = new JMenuItem("Janela Principal");
+        itemJanelaPrincipal.addActionListener(e -> {
+            new JanelaPrincipal().setVisible(true);
             this.dispose();
         });
 
         barra.add(menuArquivo);
         barra.add(menuAjuda);
+        barra.add(itemJanelaPrincipal);
         setJMenuBar(barra);
-        barra.add(itemCadastroCliente);
+        barra.add(itemJanelaPrincipal);
 
         // Abas
         JTabbedPane abas = new JTabbedPane();
