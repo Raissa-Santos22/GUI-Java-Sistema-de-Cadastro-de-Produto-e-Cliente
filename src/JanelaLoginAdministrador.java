@@ -26,7 +26,6 @@ public class JanelaLoginAdministrador extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Nome
         gbc.gridx = 0;
         gbc.gridy = 0;
         painelCampos.add(new JLabel("Nome:"), gbc);
@@ -35,7 +34,6 @@ public class JanelaLoginAdministrador extends JFrame {
         campoNome = new JTextField(20);
         painelCampos.add(campoNome, gbc);
 
-        // Email
         gbc.gridx = 0;
         gbc.gridy = 1;
         painelCampos.add(new JLabel("Email:"), gbc);
@@ -44,7 +42,7 @@ public class JanelaLoginAdministrador extends JFrame {
         campoEmail = new JTextField(20);
         painelCampos.add(campoEmail, gbc);
 
-        // Senha
+
         gbc.gridx = 0;
         gbc.gridy = 2;
         painelCampos.add(new JLabel("Senha:"), gbc);

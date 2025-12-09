@@ -14,9 +14,23 @@ public class JanelaPrincipal extends JFrame {
         setLayout(new BorderLayout());
 
         JLabel lblTitulo = new JLabel("Bem vindo ao Sistema!", SwingConstants.CENTER);
+        JLabel subtitulo = new JLabel("Escolha cliente ou produto para administrar", SwingConstants.CENTER);
+
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 28));
-        lblTitulo.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
-        add(lblTitulo, BorderLayout.NORTH);
+        subtitulo.setFont(new Font("Arial", Font.BOLD, 14));
+
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(20, 10, 5, 10));
+        subtitulo.setBorder(BorderFactory.createEmptyBorder(0, 10, 20, 10));
+
+        JPanel painelTopo = new JPanel();
+        painelTopo.setLayout(new BoxLayout(painelTopo, BoxLayout.Y_AXIS));
+
+        painelTopo.add(lblTitulo);
+        painelTopo.add(subtitulo);
+
+        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        subtitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(painelTopo, BorderLayout.NORTH);
 
         JPanel painelBotoes = new JPanel();
 

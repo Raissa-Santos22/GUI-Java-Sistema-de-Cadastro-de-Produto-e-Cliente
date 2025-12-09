@@ -21,7 +21,7 @@ public class JanelaCliente extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-         JMenuBar barra = new JMenuBar();
+        JMenuBar barra = new JMenuBar();
         JMenu menuArquivo = new JMenu("Arquivo");
         JMenuItem itemSair = new JMenuItem("Sair");
         itemSair.addActionListener(e -> System.exit(0));

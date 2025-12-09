@@ -1,3 +1,4 @@
+// Classe Modelo
 public class Administrador {
     private String nome;
     private String email;
@@ -15,6 +16,7 @@ public class Administrador {
 
     public int getId() {
         return id;
+
     }
 
     public void setId(int id) {
