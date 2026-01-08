@@ -1,6 +1,6 @@
 # Sistema de Cadastro de Produto e Cliente
 
-Projeto desenvolvido durante o curso Técnico em Desenvolvimento de Sistemas,
+Projeto desenvolvido em equipe de 5 integrantes durante o 2 ano curso Técnico em Desenvolvimento de Sistemas
 com o objetivo de praticar CRUD e integração com banco de dados utilizando a plataforma gráfica do Java.
 
 ## 🚀 Tecnologias
